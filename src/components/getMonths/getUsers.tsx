@@ -8,10 +8,8 @@ interface UsersTypes {
     dataPag: string;
 }
 
-export function getUsers() {
-
-
-    const [getUsersAll, setGetUsers] = useState<UsersTypes[]>([])
+export function useUsers() {
+    const [getUsersAll, setGetUsers] = useState<UsersTypes[]>([]);
 
     const getUsersAllFetch = async (id: string) => {
         try {

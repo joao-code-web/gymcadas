@@ -2,7 +2,7 @@
 "use client";
 
 import "./pag.css";
-import { useAllMonths, getUnicMonthAll, getUsers } from "@/components/getMonths/getMonths";
+import { useAllMonths } from "@/components/getMonths/getMonths"; // Removendo a importação não utilizada
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";

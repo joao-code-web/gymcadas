@@ -1,14 +1,15 @@
-"use client"
-import { getUnicMonthAll } from "@/components/getMonths/getUnicMonth";
-import { getUsers } from "@/components/getMonths/getUsers";
+// MonthId.tsx
+"use client";
+import { useUnicMonthAll } from "@/components/getMonths/getUnicMonth";
+import { useUsers } from "@/components/getMonths/getUsers";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 import "../pageId.css"
 
 export default function MonthId({ params }: { params: { id: string } }) {
-    const { getUnicMonth, getUnicMonthFetch } = getUnicMonthAll();
-    const { getUsersAll, getUsersAllFetch } = getUsers();
+    const { getUnicMonth, getUnicMonthFetch } = useUnicMonthAll();
+    const { getUsersAll, getUsersAllFetch } = useUsers();
     const [formDataUsers, setFormDataUsers] = useState<{ nameuser: string; value: string }>({ nameuser: '', value: '' });
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);

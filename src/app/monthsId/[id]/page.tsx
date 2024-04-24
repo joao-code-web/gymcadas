@@ -1,15 +1,44 @@
+"use client"
 import "../pageId.css";
-import { useUnicMonthAll } from "@/components/getMonths/getUnicMonth";
-import { useUsers } from "@/components/getMonths/getUsers";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+interface TypesMonths {
+    _id: string;
+    Month: string;
+}
+
+interface UsersTypes {
+    _id: string;
+    nameuser: string;
+    value: string;
+    dataPag: string;
+}
+
 export default function MonthId({ params }: { params: { id: string } }) {
-    const { getUnicMonth, getUnicMonthFetch } = useUnicMonthAll();
-    const { getUsersAll, getUsersAllFetch } = useUsers();
+    const [getUnicMonth, setGetUnicMonth] = useState<TypesMonths[]>([]);
+    const [getUsersAll, setGetUsersAll] = useState<UsersTypes[]>([]);
     const [formDataUsers, setFormDataUsers] = useState<{ nameuser: string; value: string }>({ nameuser: '', value: '' });
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const getUnicMonthFetch = async (id: string) => {
+        try {
+            const response = await axios.get<TypesMonths>(`http://localhost:8000/api/months/${id}`);
+            setGetUnicMonth([response.data]);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const getUsersAllFetch = async (id: string) => {
+        try {
+            const response = await axios.get<UsersTypes[]>(`http://localhost:8000/api/users/?monthId=${id}`);
+            setGetUsersAll(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormDataUsers({ ...formDataUsers, [e.target.name]: e.target.value });

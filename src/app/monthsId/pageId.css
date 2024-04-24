@@ -1,0 +1,90 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #121212;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+table {
+  width: 100%;
+  margin-top: 2em;
+  border-collapse: collapse;
+  overflow-x: auto;
+  /* torna a tabela responsiva */
+}
+
+th {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+
+td {
+  background-color: #444;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+
+td>button {
+  background-color: red;
+}
+
+form {
+  width: 100%;
+  text-align: center;
+  padding: 1em;
+}
+
+form h1 {
+  color: #fff;
+  margin-bottom: 1em;
+}
+
+form input {
+  margin-top: 1em;
+  padding: 1em 0.5em;
+  width: 100%;
+  max-width: 400px;
+  
+  border: 2px solid #333;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+button {
+  margin-top: 1em;
+  padding: 1em;
+  width: 100%;
+  /* Define a largura do botão como 100% */
+  max-width: 400px;
+  /* Define a largura máxima do botão */
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: #ff4d4d;
+}

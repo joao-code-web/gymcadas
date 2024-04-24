@@ -1,95 +1,71 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import "./pag.css"
+
+import { getMonths } from "@/components/getMonths/getMonths"
+import axios from "axios";
+import Link from "next/link";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { MdDelete } from "react-icons/md";
 
 export default function Home() {
+
+  const { allMonths, setAllMonths, fetGetMonth } = getMonths();
+
+  const [formData, setFormData] = useState<string>("");
+
+  const handleAddMonth = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (!formData) {
+      return;
+    }
+
+    try {
+      const responseNewMonth = await axios.post(`http://localhost:8000/api/months/`, { Month: formData });
+      console.log("Novo mês adicionado:", responseNewMonth.data);
+      setFormData("");
+      fetGetMonth();
+    } catch (error) {
+      console.error("Erro ao adicionar novo mês:", error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      if (!id) {
+        return
+      }
+
+      const responseDelete = await axios.delete(`http://localhost:8000/api/months/?monthId=${id}`);
+      console.log(responseDelete);
+      fetGetMonth();
+    } catch (error) {
+      console.log("errro")
+    }
+  }
+
+  useEffect(() => {
+    fetGetMonth();
+  }, [setAllMonths, setFormData])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <form action="">
+        <h1>Adicionar mês</h1>
+        <input type="text" onChange={(e) => setFormData(e.target.value)} />
+        <button onClick={handleAddMonth}>Adicionar</button>
+      </form>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="content">
+        {allMonths.map((monthsDads) => (
+          <div className="month" key={`${monthsDads._id}`}>
+            <Link href={`monthsId/${monthsDads._id}`}>  <h1>{monthsDads.Month}</h1></Link>
+            <button onClick={() => handleDelete(String(monthsDads._id))}><MdDelete /></button>
+          </div>
+        ))}
       </div>
     </main>
-  );
+  )
 }

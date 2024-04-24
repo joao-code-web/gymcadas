@@ -1,16 +1,17 @@
+// Home.tsx
 "use client"
 
 import "./pag.css"
 
-import { getMonths } from "@/components/getMonths/getMonths"
+import { useAllMonths } from "@/components/getMonths/getMonths"
 import axios from "axios";
 import Link from "next/link";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 export default function Home() {
 
-  const { allMonths, setAllMonths, fetGetMonth } = getMonths();
+  const { allMonths, setAllMonths, fetGetMonth } = useAllMonths();
 
   const [formData, setFormData] = useState<string>("");
 
@@ -41,13 +42,13 @@ export default function Home() {
       console.log(responseDelete);
       fetGetMonth();
     } catch (error) {
-      console.log("errro")
+      console.log("erro")
     }
   }
 
   useEffect(() => {
     fetGetMonth();
-  }, [setAllMonths, setFormData])
+  }, [fetGetMonth, setFormData])
 
   return (
     <main>

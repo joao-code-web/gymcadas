@@ -1,12 +1,13 @@
+// getMonths.tsx
 import axios from "axios";
 import { useState } from "react";
 
 interface typesMonth {
-    _id: String;
-    Month: String;
+    _id: string;
+    Month: string;
 }
 
-export function getMonths() {
+export function useAllMonths() {
     const [allMonths, setAllMonths] = useState<typesMonth[]>([]);
 
     const fetGetMonth = async () => {

@@ -1,11 +1,8 @@
-// MonthId.tsx
-"use client";
+import "../pageId.css";
 import { useUnicMonthAll } from "@/components/getMonths/getUnicMonth";
 import { useUsers } from "@/components/getMonths/getUsers";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-import "../pageId.css"
 
 export default function MonthId({ params }: { params: { id: string } }) {
     const { getUnicMonth, getUnicMonthFetch } = useUnicMonthAll();
@@ -21,7 +18,6 @@ export default function MonthId({ params }: { params: { id: string } }) {
     const handleAddUser = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
-        // Verifica se os campos estão vazios
         if (!formDataUsers.nameuser || !formDataUsers.value) {
             setError("Por favor, preencha todos os campos.");
             return;
@@ -31,7 +27,6 @@ export default function MonthId({ params }: { params: { id: string } }) {
 
         try {
             const currentDate = new Date();
-
             const dateTimeInfo = {
                 day: currentDate.getDate(),
                 month: currentDate.getMonth() + 1,
@@ -39,7 +34,6 @@ export default function MonthId({ params }: { params: { id: string } }) {
                 hour: currentDate.getHours(),
                 minuts: currentDate.getMinutes(),
             };
-
             const reset = `${dateTimeInfo.day}/${dateTimeInfo.month}/${dateTimeInfo.year} as ${dateTimeInfo.hour}:${dateTimeInfo.minuts}`;
 
             const formDataPost = {
@@ -60,7 +54,6 @@ export default function MonthId({ params }: { params: { id: string } }) {
     };
 
     const handleDeleteUser = async (id: string) => {
-
         if (!id) {
             console.log("sem esse id")
         }
@@ -79,11 +72,8 @@ export default function MonthId({ params }: { params: { id: string } }) {
         <div>
             <form>
                 {getUnicMonth.map((dadsMonth) => (
-
                     <h1 key={dadsMonth._id}>{dadsMonth.Month}</h1>
-
                 ))}
-
                 <input type="text" name="nameuser" value={formDataUsers.nameuser} onChange={handleInputChange} placeholder="Nome do usuário" />
                 <input type="text" name="value" value={formDataUsers.value} onChange={handleInputChange} placeholder="Valor" />
                 <button onClick={handleAddUser} disabled={submitting}>Enviar</button>

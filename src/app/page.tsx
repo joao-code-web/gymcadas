@@ -1,8 +1,5 @@
-// Home.tsx
-"use client";
-
 import "./pag.css";
-import { useAllMonths } from "@/components/getMonths/getMonths"; // Removendo a importação não utilizada
+import { useAllMonths } from "@/components/getMonths/getMonths";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -46,7 +43,7 @@ export default function Home() {
 
   return (
     <main>
-      <form action="">
+      <form>
         <h1>Adicionar mês</h1>
         <input type="text" onChange={(e) => setFormData(e.target.value)} />
         <button onClick={handleAddMonth}>Adicionar</button>
@@ -54,7 +51,9 @@ export default function Home() {
       <div className="content">
         {allMonths.map((monthsDads) => (
           <div className="month" key={`${monthsDads._id}`}>
-            <Link href={`monthsId/${monthsDads._id}`}> <h1>{monthsDads.Month}</h1></Link>
+            <Link href={`/monthsId/${monthsDads._id}`}>
+              <h1>{monthsDads.Month}</h1>
+            </Link>
             <button onClick={() => handleDelete(String(monthsDads._id))}><MdDelete /></button>
           </div>
         ))}

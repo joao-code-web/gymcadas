@@ -24,7 +24,7 @@ export default function MonthId({ params }: { params: { id: string } }) {
 
     const getUnicMonthFetch = async (id: string) => {
         try {
-            const response = await axios.get<TypesMonths>(`http://localhost:8000/api/months/${id}`);
+            const response = await axios.get<TypesMonths>(`api/months/${id}`);
             setGetUnicMonth([response.data]);
         } catch (error) {
             console.log(error)
@@ -33,7 +33,7 @@ export default function MonthId({ params }: { params: { id: string } }) {
 
     const getUsersAllFetch = async (id: string) => {
         try {
-            const response = await axios.get<UsersTypes[]>(`http://localhost:8000/api/users/?monthId=${id}`);
+            const response = await axios.get<UsersTypes[]>(`api/users/?monthId=${id}`);
             setGetUsersAll(response.data);
         } catch (error) {
             console.log(error);
@@ -71,7 +71,7 @@ export default function MonthId({ params }: { params: { id: string } }) {
                 dataPag: reset,
             };
 
-            await axios.post(`http://localhost:8000/api/users/?monthId=${params.id}`, formDataPost);
+            await axios.post(`api/users/?monthId=${params.id}`, formDataPost);
             setFormDataUsers({ nameuser: '', value: '' });
             setError(null);
             getUsersAllFetch(params.id);
@@ -87,7 +87,7 @@ export default function MonthId({ params }: { params: { id: string } }) {
             console.log("sem esse id")
         }
 
-        const response = await axios.delete(`http://localhost:8000/api/users/?monthId=${params.id}&userId=${id}`);
+        const response = await axios.delete(`api/users/?monthId=${params.id}&userId=${id}`);
         console.log(response);
         getUsersAllFetch(params.id);
     }

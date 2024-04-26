@@ -16,7 +16,7 @@ export default function Home() {
 
     const fetGetMonth = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/months");
+            const response = await axios.get("api/months");
             const months: TypesMonths[] = response.data;
             setAllMonths(months);
         } catch (error) {
@@ -30,7 +30,7 @@ export default function Home() {
             return;
         }
         try {
-            const responseNewMonth = await axios.post(`http://localhost:8000/api/months/`, { Month: formData });
+            const responseNewMonth = await axios.post(`api/months/`, { Month: formData });
             console.log("Novo mês adicionado:", responseNewMonth.data);
             setFormData("");
             fetGetMonth();
@@ -44,7 +44,7 @@ export default function Home() {
             if (!id) {
                 return;
             }
-            const responseDelete = await axios.delete(`http://localhost:8000/api/months/?monthId=${id}`);
+            const responseDelete = await axios.delete(`api/months/?monthId=${id}`);
             console.log(responseDelete);
             fetGetMonth();
         } catch (error) {
